@@ -14,8 +14,7 @@ const CreativesTable = () => {
       try {
         const res = await axios.get(`${API_URL}creatives`)
         console.log(res)
-        console.log(res.data)
-        setCreatives(res.data.results)
+        // setCreatives(res.data.results)
       }
       catch (e) {
         console.log(e)
