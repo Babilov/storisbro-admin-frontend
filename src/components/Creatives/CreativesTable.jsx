@@ -69,6 +69,7 @@ const CreativesTable = () => {
             boxSizing: "border-box",
           }}
         >
+          
           {["Кератив", "Номер", "Дата/время", "Просмотры", "Переходы", "CTR"].map(
             (text) => (
               <Box
