@@ -44,8 +44,7 @@ const AdPlace = () => {
   const { number } = useParams();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  console.log(isMobile);
-
+  
   return (
     <MyContainer>
       <TitleDiv title={`Рекламное место №${number}`} />

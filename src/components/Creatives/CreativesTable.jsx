@@ -14,6 +14,7 @@ const CreativesTable = () => {
       const res = await axios.get(`${API_URL}creatives`, {
         headers: { Accept: 'application/json' }
       })
+      
       setCreatives(res.data.results)
     } catch (e) {
       console.error('Request failed:', e)
