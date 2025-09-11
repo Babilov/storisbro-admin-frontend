@@ -1,8 +1,27 @@
 import { Box, Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { API_URL } from "../../utils/constants";
 
 const CreativesTable = ({ creatives }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [creatives, setCreatives] = useState([])
+
+  useEffect(() => {
+    const fetchCreatives = async () => {
+      try {
+        const res = await axios.get(`${API_URL}creatives`)
+        console.log(res)
+        console.log(res.data)
+        setCreatives(res.data.results)
+      }
+      catch (e) {
+        console.log(e)
+      }
+    }
+    fetchCreatives()
+  }, [])
 
   return (
     <Paper
