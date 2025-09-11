@@ -7,7 +7,7 @@ const CreativesTable = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [creatives, setCreatives] = useState([]);
-
+  console.log('ТЕСТ')
   useEffect(() => {
     const fetchCreatives = async () => {
       try {
