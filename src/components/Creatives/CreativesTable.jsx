@@ -7,10 +7,10 @@ const CreativesTable = ({ creatives }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [creatives, setCreatives] = useState([])
-
+console.log(`${API_URL}creatives`)
   useEffect(() => {
     const fetchCreatives = async () => {
-      console.log(`${API_URL}creatives`)
+      
       try {
         const res = await axios.get(`${API_URL}creatives`)
         console.log(res)
