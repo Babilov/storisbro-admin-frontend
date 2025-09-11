@@ -42,7 +42,7 @@ const CreativesTable = () => {
         minute: "2-digit",
         hour12: false,
       })
-
+      console.log(date, time)
     return { date, time };
   };
 
