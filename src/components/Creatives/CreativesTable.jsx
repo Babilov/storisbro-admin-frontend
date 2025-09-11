@@ -8,20 +8,24 @@ const CreativesTable = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [creatives, setCreatives] = useState([])
 
-  useEffect(() => {
-    const fetchCreatives = async () => {
-      console.log(`${API_URL}creatives`)
-      try {
-        const res = await axios.get(`${API_URL}creatives`)
-        console.log(res)
-        // setCreatives(res.data.results)
-      }
-      catch (e) {
-        console.log(e)
-      }
+ useEffect(() => {
+  const fetchCreatives = async () => {
+    try {
+      const url = `${API_URL.endsWith('/') ? API_URL : API_URL + '/'}creatives/`
+      console.log('Fetching:', url)
+      const res = await axios.get(url, {
+        headers: { Accept: 'application/json' }
+      })
+      console.log('Status:', res.status)
+      console.log('Content-Type:', res.headers['content-type'])
+      console.log('Data:', res.data)
+    } catch (e) {
+      console.error('Request failed:', e)
     }
-    fetchCreatives()
-  }, [])
+  }
+  fetchCreatives()
+}, [])
+
 
   return (
     <Paper
