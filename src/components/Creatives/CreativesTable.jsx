@@ -11,14 +11,10 @@ const CreativesTable = () => {
  useEffect(() => {
   const fetchCreatives = async () => {
     try {
-      const url = `${API_URL.endsWith('/') ? API_URL : API_URL + '/'}creatives/`
-      console.log('Fetching:', url)
-      const res = await axios.get(url, {
+      const res = await axios.get(`${API_URL}creatives`, {
         headers: { Accept: 'application/json' }
       })
-      console.log('Status:', res.status)
-      console.log('Content-Type:', res.headers['content-type'])
-      console.log('Data:', res.data)
+      setCreatives(res.data.results)
     } catch (e) {
       console.error('Request failed:', e)
     }
@@ -108,7 +104,7 @@ const CreativesTable = () => {
                   Кератив
                 </Typography>
               )}
-              <Typography variant="body2">{creative.type}</Typography>
+              <Typography variant="body2">{creative.creative_type}</Typography>
             </Box>
           </Box>
 
@@ -119,7 +115,7 @@ const CreativesTable = () => {
                 Номер
               </Typography>
             )}
-            <Typography variant="body2">{creative.number}</Typography>
+            <Typography variant="body2">{creative.id}</Typography>
           </Box>
 
           {/* Дата/время */}
@@ -130,9 +126,9 @@ const CreativesTable = () => {
               </Typography>
             )}
             <Typography variant="body2">
-              {creative.date}
+              {creative.latest_date}
               <br />
-              {creative.time}
+              {creative.published_at}
             </Typography>
           </Box>
 
@@ -153,7 +149,7 @@ const CreativesTable = () => {
                 Переходы
               </Typography>
             )}
-            <Typography variant="body2">{creative.redirects}</Typography>
+            <Typography variant="body2">{creative.clicks}</Typography>
           </Box>
 
           {/* CTR */}
@@ -164,7 +160,7 @@ const CreativesTable = () => {
               </Typography>
             )}
             <Typography variant="body2" color="text.secondary">
-              {creative.CTR} %
+              {creative.ctr} %
             </Typography>
           </Box>
         </Box>
