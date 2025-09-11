@@ -1,2 +1,1 @@
-
 export const API_URL = "http://62.113.96.70/admin/"

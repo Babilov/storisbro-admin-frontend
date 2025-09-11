@@ -10,6 +10,7 @@ const CreativesTable = ({ creatives }) => {
 
   useEffect(() => {
     const fetchCreatives = async () => {
+      console.log(`${API_URL}creatives`)
       try {
         const res = await axios.get(`${API_URL}creatives`)
         console.log(res)
