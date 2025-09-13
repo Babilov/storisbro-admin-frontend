@@ -55,15 +55,10 @@ const Statistic = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const formatDate = (dateString) => {
-    if (!dateString) return "";
-    const [year, month, day] = dateString.split("-");
-    return `${day}-${month}-${year}`;
-  };
-
   const handleShow = () => {
-    console.log("Начало:", formatDate(startDate));
-    console.log("Конец:", formatDate(endDate));
+    console.log('new');
+    console.log("Начало:", startDate);
+    console.log("Конец:", endDate);
   };
 
   return (
@@ -84,7 +79,7 @@ const Statistic = () => {
             type="date"
             value={startDate}
             onChange={(e) => setStartDate(e.target.value)}
-          />
+          />{" "}
           по{" "}
           <Input
             type="date"
