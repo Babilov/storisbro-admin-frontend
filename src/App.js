@@ -12,6 +12,7 @@ import PublicationSettings from "./pages/PublicationSettings/PublicationSettings
 import GroupStatistic from "./pages/Groups/GroupStatistic";
 import UserStatistic from "./pages/UserBase/UserStatistic";
 import AdPlace from "./pages/PublicationSettings/AdPlace";
+import StatisticDetails from "./pages/Statistic/StatisticDetails";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
 
         <Route path="/funds" element={<FundsRequests />} />
         <Route path="/statistic" element={<Statistic />} />
+        <Route path="/statistic-details" element={<StatisticDetails />} />
 
         <Route path="/publication_settings">
           <Route index element={<PublicationSettings />} />

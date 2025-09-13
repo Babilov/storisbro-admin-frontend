@@ -4,6 +4,7 @@ import TitleDiv from "../../components/CommonComponents/TitleDiv";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Div = styled.div`
   border-bottom: 1px solid black;
@@ -51,14 +52,17 @@ const Input = styled.input`
 const Statistic = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const navigate = useNavigate();
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
   const handleShow = () => {
-    console.log('new');
-    console.log("Начало:", startDate);
-    console.log("Конец:", endDate);
+    if (!startDate || !endDate) {
+      alert("Выберите обе даты!");
+      return;
+    }
+    navigate(`/statistics-result?date_from=${startDate}&date_to=${endDate}`);
   };
 
   return (
