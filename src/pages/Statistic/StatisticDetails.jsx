@@ -8,11 +8,13 @@ const StatisticDetails = () => {
     console.log(queryParams)
     const dateFrom = queryParams.get("date_from");
     const dateTo = queryParams.get("date_to");
+    console.log(dateFrom, dateTo)
+    const title = `Статистика ${dateFrom} - ${dateTo}`
 
     return (
         <MyContainer>
             <TitleDiv>
-                Статистика {dateFrom} - {dateTo}
+                {title}
             </TitleDiv>
         </MyContainer>
     )
