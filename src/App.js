@@ -35,7 +35,7 @@ function App() {
 
         <Route path="/funds" element={<FundsRequests />} />
         <Route path="/statistic" element={<Statistic />} />
-        <Route path="/statistic-details" element={<StatisticDetails />} />
+        <Route path="/statistics-details" element={<StatisticDetails />} />
 
         <Route path="/publication_settings">
           <Route index element={<PublicationSettings />} />

@@ -62,7 +62,7 @@ const Statistic = () => {
       alert("Выберите обе даты!");
       return;
     }
-    navigate(`/statistics-result?date_from=${startDate}&date_to=${endDate}`);
+    navigate(`/statistics-details?date_from=${startDate}&date_to=${endDate}`);
   };
 
   return (
