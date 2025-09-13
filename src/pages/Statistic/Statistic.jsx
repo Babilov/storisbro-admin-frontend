@@ -3,6 +3,7 @@ import MyContainer from "../../components/CommonComponents/MyContainer";
 import TitleDiv from "../../components/CommonComponents/TitleDiv";
 import { useMediaQuery } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
+import { useState } from "react";
 
 const Div = styled.div`
   border-bottom: 1px solid black;
@@ -51,6 +52,20 @@ const Statistic = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
+    const [year, month, day] = dateString.split("-");
+    return `${day}-${month}-${year}`;
+  };
+
+  const handleShow = () => {
+    console.log("Начало:", formatDate(startDate));
+    console.log("Конец:", formatDate(endDate));
+  };
+
   return (
     <MyContainer>
       <TitleDiv title="Статистика" />
@@ -64,11 +79,22 @@ const Statistic = () => {
             gap: isMobile ? 8 : 0,
           }}
         >
-          Промежуток с <Input type="date" /> по <Input type="date" />
+          Промежуток с{" "}
+          <Input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          по{" "}
+          <Input
+            type="date"
+            value={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
         </div>
       </Div>
 
-      <Button>Показать</Button>
+      <Button onClick={handleShow}>Показать</Button>
     </MyContainer>
   );
 };
