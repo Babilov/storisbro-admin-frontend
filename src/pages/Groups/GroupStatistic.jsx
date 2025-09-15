@@ -41,7 +41,7 @@ const StatCard = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: #d9d9d9;
+  background: white;
   border-radius: 12px;
   padding: 12px 20px;
   margin: 10px 0;
