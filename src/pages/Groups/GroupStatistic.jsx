@@ -1,4 +1,5 @@
 import TitleDiv from "../../components/CommonComponents/TitleDiv";
+import { Box } from "@mui/material";
 import GroupInfoBlock from "../../components/Groups/GroupStatistic/GroupInfoBlock";
 import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
@@ -90,7 +91,7 @@ const GroupStatistic = () => {
       <TitleDiv title="Статистика сообщества" />
       <GroupInfoBlock>
         <Div>
-          <img src={photo} alt="ava" />
+          <Box component="img" src={photo} alt="ava" sx={{ width: 40, height: 40, borderRadius: "50%" }} />
         </Div>
         <Div>
           <span>{title}</span>
