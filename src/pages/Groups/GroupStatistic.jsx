@@ -1,6 +1,6 @@
 import TitleDiv from "../../components/CommonComponents/TitleDiv";
 import GroupInfoBlock from "../../components/Groups/GroupStatistic/GroupInfoBlock";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import styled from "styled-components";
 import MyButton from "../../components/CommonComponents/MyButton";
 import MyContainer from "../../components/CommonComponents/MyContainer";
@@ -35,6 +35,8 @@ const DateDiv = styled.div`
 
 const GroupStatistic = () => {
   const location = useLocation();
+  const { id } = useParams()
+  console.log(id)
   const { title } = location.state || {};
   return (
     <MyContainer>

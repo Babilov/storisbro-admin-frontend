@@ -148,7 +148,7 @@ const GroupsTable = () => {
                 color: "blue",
               }}
               state={{ title: group.community_name }}
-              to={`statistic/${group.group_id}`}
+              to={`statistic/${group.community_id}`}
             >
               Открыть статистику
             </Link>
