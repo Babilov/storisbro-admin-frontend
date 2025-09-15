@@ -1,9 +1,24 @@
 import { Box, Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../utils/constants";
 
-const GroupsTable = ({ groups }) => {
+const GroupsTable = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  
+  const [groups, setGroups] = useState([])
+
+  useEffect(() => {
+    const getGroups = async () => {
+      const res = await axios.get(`${API_URL}community/`)
+      console.log(res)
+      setGroups(res.data)
+      console.log(`GROUPS: ${groups}`)
+    } 
+    getGroups()
+  }, [])
 
   return (
     <Paper
