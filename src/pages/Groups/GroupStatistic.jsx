@@ -36,6 +36,30 @@ const DateDiv = styled.div`
   margin: 20px 0;
 `;
 
+// Карточка для одной записи статистики
+const StatCard = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #d9d9d9;
+  border-radius: 12px;
+  padding: 12px 20px;
+  margin: 10px 0;
+  font-size: 16px;
+  font-weight: 500;
+
+  & > div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    border-right: 1px solid #aaa;
+
+    &:last-child {
+      border-right: none;
+    }
+  }
+`;
+
 const GroupStatistic = () => {
   const location = useLocation();
   const { id } = useParams();
@@ -43,6 +67,7 @@ const GroupStatistic = () => {
 
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
+  const [stats, setStats] = useState([]);
 
   const handleClick = async () => {
     if (!dateFrom || !dateTo) {
@@ -54,8 +79,7 @@ const GroupStatistic = () => {
       const res = await axios.get(
         `${API_URL}community/stats/${id}/?date_from=${dateFrom}&date_to=${dateTo}`
       );
-      console.log("Ответ сервера:", res.data);
-      // здесь можно положить данные в state и отобразить
+      setStats(res.data);
     } catch (err) {
       console.error("Ошибка запроса:", err);
     }
@@ -75,6 +99,7 @@ const GroupStatistic = () => {
           <span>30.07.2025</span>
         </Div>
       </GroupInfoBlock>
+
       <DateDiv>
         Сроки с 
         <Input 
@@ -89,12 +114,24 @@ const GroupStatistic = () => {
           onChange={(e) => setDateTo(e.target.value)} 
         />
       </DateDiv>
+
       <MyButton 
         sizes={{ width: "180px", height: "40px" }} 
         onClick={handleClick}
       >
         Показать
       </MyButton>
+
+      {/* Вывод карточек */}
+      <div>
+        {stats.map((item, index) => (
+          <StatCard key={index}>
+            <div>Дата: {new Date(item.date).toLocaleDateString("ru-RU")}</div>
+            <div>Рейтинг: {item.rank}</div>
+            <div>Заработок: {item.income} ₽</div>
+          </StatCard>
+        ))}
+      </div>
     </MyContainer>
   );
 };
