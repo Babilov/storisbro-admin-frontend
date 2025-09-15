@@ -167,9 +167,9 @@ const GroupsTable = () => {
                 textDecoration: "none",
                 color: "blue",
               }}
-              to={`/users/${group.userUID}`}
+              to={`/users/${group.user_id}`}
             >
-              {group.userUID}
+              {group.user_id}
             </Link>
           </Box>
         </Box>
