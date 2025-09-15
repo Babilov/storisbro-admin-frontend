@@ -12,10 +12,13 @@ const GroupsTable = () => {
 
   useEffect(() => {
     const getGroups = async () => {
-      const res = await axios.get(`${API_URL}community/`)
-      console.log(res)
-      setGroups(res.data)
-      console.log(`GROUPS: ${groups}`)
+      try {
+        const res = await axios.get(`${API_URL}community/`)
+        setGroups(res.data)
+      }
+      catch (e) {
+        console.log(e)
+      }
     } 
     getGroups()
   }, [])
@@ -61,7 +64,7 @@ const GroupsTable = () => {
       {/* Строки */}
       {groups.map((group) => (
         <Box
-          key={group.id}
+          key={group.group_id}
           sx={{
             display: "flex",
             flexDirection: isMobile ? "column" : "row",
@@ -86,7 +89,7 @@ const GroupsTable = () => {
           >
             <Box
               component="img"
-              src="/groupAva.png"
+              src={group.group_photo}
               sx={{ width: 40, height: 40, borderRadius: "50%" }}
             />
             {isMobile && (
@@ -103,7 +106,7 @@ const GroupsTable = () => {
                 Название
               </Typography>
             )}
-            <Typography variant="body2">{group.title}</Typography>
+            <Typography variant="body2">{group.community_name}</Typography>
           </Box>
 
           {/* Дата */}
@@ -113,7 +116,7 @@ const GroupsTable = () => {
                 Дата
               </Typography>
             )}
-            <Typography variant="body2">{group.date}</Typography>
+            <Typography variant="body2">{group.date_added}</Typography>
           </Box>
 
           {/* Статус */}
@@ -125,9 +128,9 @@ const GroupsTable = () => {
             )}
             <Typography
               variant="body2"
-              sx={{ color: group.status === "Активно" ? "green" : "red" }}
+              sx={{ color: group.is_enabled === "Активно" ? "green" : "red" }}
             >
-              {group.status}
+              {group.is_enabled}
             </Typography>
           </Box>
 
@@ -144,8 +147,8 @@ const GroupsTable = () => {
                 textDecoration: "none",
                 color: "blue",
               }}
-              state={{ title: group.title }}
-              to={`statistic/${group.id}`}
+              state={{ title: group.community_name }}
+              to={`statistic/${group.group_id}`}
             >
               Открыть статистику
             </Link>
