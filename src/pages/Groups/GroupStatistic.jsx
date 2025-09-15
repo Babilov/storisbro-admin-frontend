@@ -63,7 +63,7 @@ const StatCard = styled.div`
 const GroupStatistic = () => {
   const location = useLocation();
   const { id } = useParams();
-  const { title } = location.state || {};
+  const { title, photo } = location.state || {};
 
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
@@ -90,7 +90,7 @@ const GroupStatistic = () => {
       <TitleDiv title="Статистика сообщества" />
       <GroupInfoBlock>
         <Div>
-          <img src="/groupAva.png" alt="ava" />
+          <img src={photo} alt="ava" />
         </Div>
         <Div>
           <span>{title}</span>

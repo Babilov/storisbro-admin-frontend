@@ -147,7 +147,7 @@ const GroupsTable = () => {
                 textDecoration: "none",
                 color: "blue",
               }}
-              state={{ title: group.community_name }}
+              state={{ title: group.community_name, photo: group.group_photo }}
               to={`statistic/${group.community_id}`}
             >
               Открыть статистику
