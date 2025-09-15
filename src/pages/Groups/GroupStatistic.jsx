@@ -6,7 +6,7 @@ import MyButton from "../../components/CommonComponents/MyButton";
 import MyContainer from "../../components/CommonComponents/MyContainer";
 import axios from "axios";
 import { API_URL } from "../../utils/constants";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const Div = styled.div`
   padding: 10px 50px;
@@ -36,35 +36,30 @@ const DateDiv = styled.div`
   margin: 20px 0;
 `;
 
-
-
-
-
-/*const handleClick = async () => {
-  const res = axios.get(`${API_URL}community/stats/${id}/date_from=${dateFrom}&date_to=${dateTo}`)
-
-}*/
-
-
-
 const GroupStatistic = () => {
   const location = useLocation();
-  const { id } = useParams()
-  console.log(id)
+  const { id } = useParams();
   const { title } = location.state || {};
-
-  const handleDateChange = (e, setDate) => {
-      setDate(e.target.value);
-  };
-
-  useEffect(() => {
-    console.log(`DATEfrom: ${dateFrom}`)
-    console.log(`DATEto: ${dateTo}`)
-  }, [dateFrom, dateTo])
-
 
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
+
+  const handleClick = async () => {
+    if (!dateFrom || !dateTo) {
+      alert("Выберите обе даты");
+      return;
+    }
+
+    try {
+      const res = await axios.get(
+        `${API_URL}community/stats/${id}/?date_from=${dateFrom}&date_to=${dateTo}`
+      );
+      console.log("Ответ сервера:", res.data);
+      // здесь можно положить данные в state и отобразить
+    } catch (err) {
+      console.error("Ошибка запроса:", err);
+    }
+  };
 
   return (
     <MyContainer>
@@ -81,10 +76,25 @@ const GroupStatistic = () => {
         </Div>
       </GroupInfoBlock>
       <DateDiv>
-        Сроки с <Input type="date" value={dateFrom} onChange={(e) => handleDateChange(e, setDateFrom)} /> 
-        по <Input type="date" value={dateTo} onChange={(e) => handleDateChange(e, setDateTo)} />
+        Сроки с 
+        <Input 
+          type="date" 
+          value={dateFrom}
+          onChange={(e) => setDateFrom(e.target.value)} 
+        /> 
+        по 
+        <Input 
+          type="date" 
+          value={dateTo}
+          onChange={(e) => setDateTo(e.target.value)} 
+        />
       </DateDiv>
-      <MyButton sizes={{ width: "180px", height: "40px" }}>Показать</MyButton>
+      <MyButton 
+        sizes={{ width: "180px", height: "40px" }} 
+        onClick={handleClick}
+      >
+        Показать
+      </MyButton>
     </MyContainer>
   );
 };
