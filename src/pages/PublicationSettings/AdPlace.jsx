@@ -1,3 +1,4 @@
+import { useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -44,7 +45,39 @@ const AdPlace = () => {
   const { number } = useParams();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-  
+
+  // состояния
+  const [videoName, setVideoName] = useState(""); // для первого инпута
+  const [date, setDate] = useState(new Date());
+  const [creativeFile, setCreativeFile] = useState(null); // для файла
+  const [url, setUrl] = useState("");
+
+  // ref для input[file]
+  const fileInputRef = useRef(null);
+
+  const handleFileClick = () => {
+    fileInputRef.current.click(); // программно кликаем по input
+  };
+
+  const handleFileChange = (e) => {
+    if (e.target.files.length > 0) {
+      const file = e.target.files[0];
+      console.log("Выбран файл:", file.name);
+      setCreativeFile(file);
+    }
+  };
+
+  // обработка сохранения
+  const handleSave = () => {
+    console.log("===== ДАННЫЕ ДЛЯ СОХРАНЕНИЯ =====");
+    console.log("Контент-видео:", videoName);
+    console.log("Время публикации:", date.toString());
+    console.log("Рекламный креатив:", creativeFile ? creativeFile.name : null);
+    console.log("Ссылка:", url);
+    console.log("=================================");
+    alert("Данные выведены в консоль ✅");
+  };
+
   return (
     <MyContainer>
       <TitleDiv title={`Рекламное место №${number}`} />
@@ -58,26 +91,47 @@ const AdPlace = () => {
         {titles.map((title, index) => (
           <Div key={index}>
             <BoldText>{title}</BoldText>
-            {index !== 1 && index !== 2 ? (
+
+            {index === 0 && (
               <MyInput
                 sizes={{ height: "60px", width: "330px" }}
                 padding="0px"
+                value={videoName}
+                onChange={(e) => setVideoName(e.target.value)}
               />
-            ) : index === 1 ? (
-              <MyTimePicker />
-            ) : (
-              <MyButton
-                $isMobile={isMobile}
-                background="transparent"
-                border="1px solid black"
-                margin="0px"
-                sizes={{
-                  height: "60px",
-                }}
-                style={{ width: isMobile ? "100%" : "330px" }}
-              >
-                Выбрать
-              </MyButton>
+            )}
+
+            {index === 1 && <MyTimePicker date={date} setDate={setDate} />}
+
+            {index === 2 && (
+              <>
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  style={{ display: "none" }}
+                  onChange={handleFileChange}
+                />
+                <MyButton
+                  $isMobile={isMobile}
+                  background="transparent"
+                  border="1px solid black"
+                  margin="0px"
+                  sizes={{ height: "60px" }}
+                  style={{ width: isMobile ? "100%" : "330px" }}
+                  onClick={handleFileClick}
+                >
+                  {creativeFile ? creativeFile.name : "Выбрать"}
+                </MyButton>
+              </>
+            )}
+
+            {index === 3 && (
+              <MyInput
+                sizes={{ height: "60px", width: "330px" }}
+                padding="0px"
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />
             )}
           </Div>
         ))}
@@ -85,7 +139,13 @@ const AdPlace = () => {
       </div>
 
       <DragAndDrop />
-      <MyButton background="#13C925" sizes={{ height: "45px", width: "180px" }}>
+
+      {/* кнопка сохранить */}
+      <MyButton
+        background="#13C925"
+        sizes={{ height: "45px", width: "180px" }}
+        onClick={handleSave}
+      >
         Сохранить
       </MyButton>
     </MyContainer>

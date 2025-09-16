@@ -4,15 +4,13 @@ import TextField from "@mui/material/TextField";
 import ruLocale from "date-fns/locale/ru";
 import { useState } from "react";
 
-const MyTimePicker = () => {
-  const [value, setValue] = useState(new Date());
-
+const MyTimePicker = ({ date, setDate }) => {
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={ruLocale}>
       <TimePicker
         label="Выберите время"
-        value={value}
-        onChange={(newValue) => setValue(newValue)}
+        value={date}
+        onChange={(newValue) => setDate(newValue)}
         renderInput={(params) => <TextField {...params} />}
       />
     </LocalizationProvider>

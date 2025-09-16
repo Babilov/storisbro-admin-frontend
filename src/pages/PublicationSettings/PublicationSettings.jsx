@@ -9,10 +9,16 @@ import {
   InputsWrapper,
 } from "../../components/PublicationSettings/components";
 import AdPlaces from "../../components/PublicationSettings/AdPlaces";
+import { useState } from "react";
 
 const PublicationSettings = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+
+  const handleClick = async () => {};
 
   return (
     <MyContainer>
@@ -27,7 +33,18 @@ const PublicationSettings = () => {
             }}
           >
             <InputsWrapper>
-              с <input type="date" /> по <input type="date" />
+              с{" "}
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              по{" "}
+              <input
+                type="date"
+                alue={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
             </InputsWrapper>
 
             <FormGroup sx={{ ml: isMobile ? 0 : 4, mt: isMobile ? 1 : 0 }}>
