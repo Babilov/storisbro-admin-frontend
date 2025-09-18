@@ -18,8 +18,6 @@ const PublicationSettings = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
-  const handleClick = async () => {};
-
   return (
     <MyContainer>
       <TitleDiv title="Настройки публикации" />

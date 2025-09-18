@@ -8,7 +8,14 @@ import MyInput from "../../components/CommonComponents/MyInput";
 import MyTimePicker from "../../components/PublicationSettings/MyTimePicker";
 import MyButton from "../../components/CommonComponents/MyButton";
 import MyContainer from "../../components/CommonComponents/MyContainer";
-import { useMediaQuery, useTheme } from "@mui/material";
+import {
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { InputsWrapper } from "../../components/PublicationSettings/components";
 
 const BoldText = styled.span`
   font-weight: 400;
@@ -39,6 +46,7 @@ const titles = [
   "Время публикации",
   "Рекламный креатив",
   "Ссылка",
+  "Период публикации",
 ];
 
 const AdPlace = () => {
@@ -47,10 +55,13 @@ const AdPlace = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
   // состояния
-  const [videoName, setVideoName] = useState(""); // для первого инпута
-  const [date, setDate] = useState(new Date());
+  const [contentVideosCount, setContentVideosCount] = useState(3); // для первого инпута
+  const [time, setTime] = useState(new Date());
   const [creativeFile, setCreativeFile] = useState(null); // для файла
   const [url, setUrl] = useState("");
+
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   // ref для input[file]
   const fileInputRef = useRef(null);
@@ -70,8 +81,8 @@ const AdPlace = () => {
   // обработка сохранения
   const handleSave = () => {
     console.log("===== ДАННЫЕ ДЛЯ СОХРАНЕНИЯ =====");
-    console.log("Контент-видео:", videoName);
-    console.log("Время публикации:", date.toString());
+    console.log("Контент-видео:", contentVideosCount);
+    console.log("Время публикации:", time.toString());
     console.log("Рекламный креатив:", creativeFile ? creativeFile.name : null);
     console.log("Ссылка:", url);
     console.log("=================================");
@@ -96,12 +107,12 @@ const AdPlace = () => {
               <MyInput
                 sizes={{ height: "60px", width: "330px" }}
                 padding="0px"
-                value={videoName}
-                onChange={(e) => setVideoName(e.target.value)}
+                value={contentVideosCount}
+                onChange={(e) => setContentVideosCount(e.target.value)}
               />
             )}
 
-            {index === 1 && <MyTimePicker date={date} setDate={setDate} />}
+            {index === 1 && <MyTimePicker date={time} setDate={setTime} />}
 
             {index === 2 && (
               <>
@@ -132,6 +143,34 @@ const AdPlace = () => {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
               />
+            )}
+
+            {index === 4 && (
+              <Div
+                style={{
+                  justifyContent: isMobile ? "flex-start" : "space-between",
+                  flexWrap: "wrap",
+                }}
+              >
+                <InputsWrapper>
+                  с{" "}
+                  <input
+                    type="date"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                  по{" "}
+                  <input
+                    type="date"
+                    alue={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                </InputsWrapper>
+
+                <FormGroup sx={{ ml: isMobile ? 0 : 4, mt: isMobile ? 1 : 0 }}>
+                  <FormControlLabel control={<Checkbox />} label="Постоянно" />
+                </FormGroup>
+              </Div>
             )}
           </Div>
         ))}
