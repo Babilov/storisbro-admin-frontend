@@ -99,7 +99,7 @@ const AdPlace = () => {
       formData.append("publication_time", formatTime(time));
       formData.append("add_url", url);
       formData.append("position", JSON.stringify([1, 0, 0, 0]));
-      formData.append("tbp", JSON.stringify([1, 1, 1]));
+      formData.append("tbp", 1);
       formData.append("start_date", startDate);
       formData.append("end_date", endDate);
       formData.append("use_mode", "always");
