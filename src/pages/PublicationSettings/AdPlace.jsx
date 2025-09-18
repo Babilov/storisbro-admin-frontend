@@ -80,6 +80,12 @@ const AdPlace = () => {
     }
   };
 
+  const formatTime = (date) => {
+    const h = String(date.getHours()).padStart(2, "0");
+    const m = String(date.getMinutes()).padStart(2, "0");
+    return `${h}:${m}`;
+  };
+
   // обработка сохранения
   const handleSave = async () => {
     try {
@@ -90,7 +96,7 @@ const AdPlace = () => {
       }
 
       formData.append("contentVideos", contentVideosCount);
-      formData.append("publication_time", time.toISOString()); // лучше ISO строка
+      formData.append("publication_time", formatTime(time));
       formData.append("add_url", url);
       formData.append("position", JSON.stringify([1, 0, 0, 0]));
       formData.append("tbp", JSON.stringify([1, 1, 1]));
