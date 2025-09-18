@@ -91,31 +91,6 @@ const AdPlace = () => {
 
   return (
     <MyContainer>
-      <Div
-        style={{
-          justifyContent: isMobile ? "flex-start" : "space-between",
-          flexWrap: "wrap",
-        }}
-      >
-        <InputsWrapper>
-          с{" "}
-          <input
-            type="date"
-            value={startDate}
-            onChange={(e) => setStartDate(e.target.value)}
-          />
-          по{" "}
-          <input
-            type="date"
-            alue={endDate}
-            onChange={(e) => setEndDate(e.target.value)}
-          />
-        </InputsWrapper>
-
-        <FormGroup sx={{ ml: isMobile ? 0 : 4, mt: isMobile ? 1 : 0 }}>
-          <FormControlLabel control={<Checkbox />} label="Постоянно" />
-        </FormGroup>
-      </Div>
       <TitleDiv title={`Рекламное место №${number}`} />
       <div
         style={{
@@ -124,6 +99,31 @@ const AdPlace = () => {
           alignItems: "center",
         }}
       >
+        <Div
+          style={{
+            justifyContent: isMobile ? "flex-start" : "space-between",
+            flexWrap: "wrap",
+          }}
+        >
+          <InputsWrapper>
+            с{" "}
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+            />
+            по{" "}
+            <input
+              type="date"
+              alue={endDate}
+              onChange={(e) => setEndDate(e.target.value)}
+            />
+          </InputsWrapper>
+
+          <FormGroup sx={{ ml: isMobile ? 0 : 4, mt: isMobile ? 1 : 0 }}>
+            <FormControlLabel control={<Checkbox />} label="Постоянно" />
+          </FormGroup>
+        </Div>
         {titles.map((title, index) => (
           <Div key={index}>
             <BoldText>{title}</BoldText>
