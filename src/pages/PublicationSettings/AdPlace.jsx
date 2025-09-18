@@ -96,6 +96,8 @@ const AdPlace = () => {
       formData.append("tbp", JSON.stringify([1, 1, 1]));
       formData.append("start_date", startDate);
       formData.append("end_date", endDate);
+      formData.append("use_mode", "always");
+      formData.append("creative_slot", 1);
 
       const res = await axios.post(
         `${API_URL}publications/settings/`,
