@@ -91,6 +91,31 @@ const AdPlace = () => {
 
   return (
     <MyContainer>
+      <Div
+        style={{
+          justifyContent: isMobile ? "flex-start" : "space-between",
+          flexWrap: "wrap",
+        }}
+      >
+        <InputsWrapper>
+          с{" "}
+          <input
+            type="date"
+            value={startDate}
+            onChange={(e) => setStartDate(e.target.value)}
+          />
+          по{" "}
+          <input
+            type="date"
+            alue={endDate}
+            onChange={(e) => setEndDate(e.target.value)}
+          />
+        </InputsWrapper>
+
+        <FormGroup sx={{ ml: isMobile ? 0 : 4, mt: isMobile ? 1 : 0 }}>
+          <FormControlLabel control={<Checkbox />} label="Постоянно" />
+        </FormGroup>
+      </Div>
       <TitleDiv title={`Рекламное место №${number}`} />
       <div
         style={{
@@ -143,34 +168,6 @@ const AdPlace = () => {
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
               />
-            )}
-
-            {index === 4 && (
-              <Div
-                style={{
-                  justifyContent: isMobile ? "flex-start" : "space-between",
-                  flexWrap: "wrap",
-                }}
-              >
-                <InputsWrapper>
-                  с{" "}
-                  <input
-                    type="date"
-                    value={startDate}
-                    onChange={(e) => setStartDate(e.target.value)}
-                  />
-                  по{" "}
-                  <input
-                    type="date"
-                    alue={endDate}
-                    onChange={(e) => setEndDate(e.target.value)}
-                  />
-                </InputsWrapper>
-
-                <FormGroup sx={{ ml: isMobile ? 0 : 4, mt: isMobile ? 1 : 0 }}>
-                  <FormControlLabel control={<Checkbox />} label="Постоянно" />
-                </FormGroup>
-              </Div>
             )}
           </Div>
         ))}
