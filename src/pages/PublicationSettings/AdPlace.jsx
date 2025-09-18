@@ -16,6 +16,8 @@ import {
   useTheme,
 } from "@mui/material";
 import { InputsWrapper } from "../../components/PublicationSettings/components";
+import axios from "axios";
+import { API_URL } from "../../utils/constants";
 
 const BoldText = styled.span`
   font-weight: 400;
@@ -79,14 +81,17 @@ const AdPlace = () => {
   };
 
   // обработка сохранения
-  const handleSave = () => {
-    console.log("===== ДАННЫЕ ДЛЯ СОХРАНЕНИЯ =====");
-    console.log("Контент-видео:", contentVideosCount);
-    console.log("Время публикации:", time.toString());
-    console.log("Рекламный креатив:", creativeFile ? creativeFile.name : null);
-    console.log("Ссылка:", url);
-    console.log("=================================");
-    alert("Данные выведены в консоль ✅");
+  const handleSave = async () => {
+    const res = await axios.post(`${API_URL}publications/settings/`, {
+      file_obj: creativeFile,
+      contentVideos: contentVideosCount,
+      publication_time: time,
+      add_url: url,
+      position: [1, 0, 0, 0],
+      tbp: [1, 1, 1],
+      start_date: startDate,
+      end_date: endDate,
+    });
   };
 
   return (
