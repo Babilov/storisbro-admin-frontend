@@ -82,16 +82,35 @@ const AdPlace = () => {
 
   // обработка сохранения
   const handleSave = async () => {
-    const res = await axios.post(`${API_URL}publications/settings/`, {
-      file_obj: creativeFile,
-      contentVideos: contentVideosCount,
-      publication_time: time,
-      add_url: url,
-      position: [1, 0, 0, 0],
-      tbp: [1, 1, 1],
-      start_date: startDate,
-      end_date: endDate,
-    });
+    try {
+      const formData = new FormData();
+
+      if (creativeFile) {
+        formData.append("file_obj", creativeFile); // имя поля должно совпадать с тем, что ждёт сервер
+      }
+
+      formData.append("contentVideos", contentVideosCount);
+      formData.append("publication_time", time.toISOString()); // лучше ISO строка
+      formData.append("add_url", url);
+      formData.append("position", JSON.stringify([1, 0, 0, 0]));
+      formData.append("tbp", JSON.stringify([1, 1, 1]));
+      formData.append("start_date", startDate);
+      formData.append("end_date", endDate);
+
+      const res = await axios.post(
+        `${API_URL}publications/settings/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("Успех:", res.data);
+    } catch (err) {
+      console.error("Ошибка при сохранении:", err);
+    }
   };
 
   return (
