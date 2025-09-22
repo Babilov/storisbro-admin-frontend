@@ -206,7 +206,7 @@ const AdPlace = () => {
                   style={{ width: isMobile ? "100%" : "330px" }}
                   onClick={handleFileClick}
                 >
-                  {creativeFile ? creativeFile.name : "Выбрать"}
+                  {creativeFile ? creativeFile : "Выбрать"}
                 </MyButton>
               </>
             )}
