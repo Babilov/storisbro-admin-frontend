@@ -127,6 +127,7 @@ const AdPlace = () => {
       const res = await axios.get(`${API_URL}publications/latest/`);
       setPublication(res.data[number]);
       console.log(res.data[number]);
+      console.log(res.data[number].add_file);
       if (res.data[number]) {
         setStartDate(res.data[number].start_date);
         setEndDate(res.data[number].end_date);
