@@ -126,6 +126,7 @@ const AdPlace = () => {
     const getPublications = async () => {
       const res = await axios.get(`${API_URL}publications/latest/`);
       setPublication(res.data[number]);
+      console.log(publication);
       if (publication) {
         setStartDate(publication?.start_date);
         setEndDate(publication?.end_date);
