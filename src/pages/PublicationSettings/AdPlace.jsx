@@ -128,11 +128,11 @@ const AdPlace = () => {
       setPublication(res.data[number]);
       console.log(res.data[number]);
       if (res.data[number]) {
-        setStartDate(publication?.start_date);
-        setEndDate(publication?.end_date);
-        setContentVideosCount(publication?.content_videos);
-        setCreativeFile(publication?.add_file);
-        setUrl(publication?.add_url);
+        setStartDate(res.data[number].start_date);
+        setEndDate(res.data[number].end_date);
+        setContentVideosCount(res.data[number].content_videos);
+        setCreativeFile(res.data[number].add_file);
+        setUrl(res.data[number].add_url);
       }
     };
     getPublications();
