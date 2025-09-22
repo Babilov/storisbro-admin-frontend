@@ -61,9 +61,9 @@ const AdPlace = () => {
   const [time, setTime] = useState(new Date());
   const [creativeFile, setCreativeFile] = useState(null); // для файла
   const [url, setUrl] = useState("");
-
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [publication, setPublication] = useState({});
 
   // ref для input[file]
   const fileInputRef = useRef(null);
@@ -94,7 +94,8 @@ const AdPlace = () => {
       if (creativeFile) {
         formData.append("file_obj", creativeFile); // имя поля должно совпадать с тем, что ждёт сервер
       }
-
+      console.log(startDate);
+      console.log(endDate);
       formData.append("contentVideos", contentVideosCount);
       formData.append("publication_time", formatTime(time));
       formData.append("add_url", url);
@@ -115,7 +116,7 @@ const AdPlace = () => {
         }
       );
 
-      console.log("Успех:", res.data);
+      alert("Публикация успешно добавлена!");
     } catch (err) {
       console.error("Ошибка при сохранении:", err);
     }
@@ -124,7 +125,9 @@ const AdPlace = () => {
   useEffect(() => {
     const getPublications = async () => {
       const res = await axios.get(`${API_URL}publications/latest/`);
-      console.log(res);
+      setPublication(res.data);
+      console.log(number);
+      console.log(res.data[number]);
     };
     getPublications();
   }, []);
