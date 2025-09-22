@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
 
@@ -120,6 +120,14 @@ const AdPlace = () => {
       console.error("Ошибка при сохранении:", err);
     }
   };
+
+  useEffect(() => {
+    const getPublications = async () => {
+      const res = await axios.get(`${API_URL}publications/latest/`);
+      console.log(res);
+    };
+    getPublications();
+  }, []);
 
   return (
     <MyContainer>
