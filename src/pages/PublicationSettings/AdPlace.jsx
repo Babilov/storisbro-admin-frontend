@@ -96,7 +96,7 @@ const AdPlace = () => {
       }
       console.log(startDate);
       console.log(endDate);
-      formData.append("contentVideos", contentVideosCount);
+      formData.append("content_videos", contentVideosCount);
       formData.append("publication_time", formatTime(time));
       formData.append("add_url", url);
       formData.append("position", JSON.stringify([1, 0, 0, 0]));
@@ -125,9 +125,14 @@ const AdPlace = () => {
   useEffect(() => {
     const getPublications = async () => {
       const res = await axios.get(`${API_URL}publications/latest/`);
-      setPublication(res.data);
-      console.log(number);
-      console.log(res.data[number]);
+      setPublication(res.data[number]);
+      if (publication) {
+        setStartDate(publication?.start_date);
+        setEndDate(publication?.end_date);
+        setContentVideosCount(publication?.content_videos);
+        setCreativeFile(publication?.add_file);
+        setUrl(publication?.add_url);
+      }
     };
     getPublications();
   }, []);
