@@ -15,7 +15,7 @@ const UsersTable = () => {
       try {
         const res = await axios.get(`${API_URL}users/`);
         setUsers(res.data);
-        console.log(res.data);
+        console.log(res.data.users);
       } catch (e) {
         console.log(e);
       }
