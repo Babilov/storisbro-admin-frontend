@@ -23,6 +23,10 @@ const UsersTable = () => {
     getUsers();
   }, []);
 
+  const formatDate = (date) => {
+    return date.split("T")[0];
+  };
+
   return (
     <Paper
       elevation={0}
@@ -101,7 +105,7 @@ const UsersTable = () => {
                 Дата
               </Typography>
             )}
-            {user.date_joined}
+            {formatDate(user.date_joined)}
           </Box>
 
           {/* Вывод */}
