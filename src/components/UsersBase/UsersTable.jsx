@@ -1,9 +1,21 @@
 import { Box, Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
+import axios from "axios";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { API_URL } from "../../utils/constants";
 
 const UsersTable = ({ users }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const res = await axios.get(`${API_URL}users/`);
+      console.log(res);
+    };
+
+    getUsers();
+  }, []);
 
   return (
     <Paper
