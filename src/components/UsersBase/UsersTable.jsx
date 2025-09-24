@@ -1,17 +1,23 @@
 import { Box, Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../utils/constants";
 
-const UsersTable = ({ users }) => {
+const UsersTable = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
+  const [users, setUsers] = useState([]);
+
   useEffect(() => {
     const getUsers = async () => {
-      const res = await axios.get(`${API_URL}users/`);
-      console.log(res);
+      try {
+        const res = await axios.get(`${API_URL}users/`);
+        setUsers(res.data);
+      } catch (e) {
+        console.log(e);
+      }
     };
 
     getUsers();
@@ -57,7 +63,7 @@ const UsersTable = ({ users }) => {
       {/* Строки */}
       {users.map((user) => (
         <Box
-          key={user.id}
+          key={user.uid}
           sx={{
             display: "flex",
             flexDirection: isMobile ? "column" : "row",
@@ -82,9 +88,9 @@ const UsersTable = ({ users }) => {
                 textDecoration: "none",
                 color: "blue",
               }}
-              to={`/users/${user.id}`}
+              to={`/users/${user.uid}`}
             >
-              {user.id}
+              {user.uid}
             </Link>
           </Box>
 
@@ -95,7 +101,7 @@ const UsersTable = ({ users }) => {
                 Дата
               </Typography>
             )}
-            {user.date}
+            {user.date_joined}
           </Box>
 
           {/* Вывод */}
@@ -105,8 +111,8 @@ const UsersTable = ({ users }) => {
                 Вывод
               </Typography>
             )}
-            Вывод ({user.comission}%) <br />
-            {user.price} ₽
+            Вывод ({user.commission_percent}%) <br />
+            {user.withdrawn_amount} ₽
           </Box>
 
           {/* ПК */}
@@ -117,7 +123,7 @@ const UsersTable = ({ users }) => {
               </Typography>
             )}
             Участие в ПК: <br />
-            {user.isPK ? "Да" : "Нет"}
+            {user.is_low_commission}
           </Box>
 
           {/* Сообщества */}
@@ -128,7 +134,7 @@ const UsersTable = ({ users }) => {
               </Typography>
             )}
             <Typography color="text.secondary" fontSize="0.875rem">
-              {user.groupsCount}
+              {user.communities_count}
             </Typography>
           </Box>
         </Box>
