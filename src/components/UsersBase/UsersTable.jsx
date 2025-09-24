@@ -14,8 +14,7 @@ const UsersTable = () => {
     const getUsers = async () => {
       try {
         const res = await axios.get(`${API_URL}users/`);
-        setUsers(res.data);
-        console.log(res.data.users);
+        setUsers(res.data.users);
       } catch (e) {
         console.log(e);
       }
