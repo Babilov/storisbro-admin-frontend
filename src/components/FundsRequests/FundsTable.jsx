@@ -2,6 +2,7 @@ import { Box, Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../utils/constants";
+import { formatDate } from "../../utils/funcs";
 
 const FundsTable = ({ funds }) => {
   const theme = useTheme();
@@ -83,7 +84,7 @@ const FundsTable = ({ funds }) => {
                 Дата
               </Typography>
             )}
-            <Typography variant="body2">{request.date}</Typography>
+            <Typography variant="body2">{formatDate(request.date)}</Typography>
           </Box>
 
           {/* Статус */}

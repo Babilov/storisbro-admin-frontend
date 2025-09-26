@@ -3,6 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { API_URL } from "../../utils/constants";
+import { formatDate } from "../../utils/funcs";
 
 const UsersTable = () => {
   const theme = useTheme();
@@ -22,10 +23,6 @@ const UsersTable = () => {
 
     getUsers();
   }, []);
-
-  const formatDate = (date) => {
-    return date.split("T")[0];
-  };
 
   return (
     <Paper
