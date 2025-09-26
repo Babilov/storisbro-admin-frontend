@@ -1,8 +1,22 @@
 import { Box, Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { API_URL } from "../../utils/constants";
 
 const FundsTable = ({ funds }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
+  const [requests, setRequests] = useState([]);
+
+  useEffect(() => {
+    const getRequests = async () => {
+      const res = await axios.get(`${API_URL}withdrawals/`);
+      setRequests(res.data);
+      console.log(res);
+    };
+    getRequests();
+  }, []);
 
   return (
     <Paper
@@ -37,9 +51,9 @@ const FundsTable = ({ funds }) => {
       )}
 
       {/* Строки */}
-      {funds.map((fund) => (
+      {requests.map((request) => (
         <Box
-          key={fund.id}
+          key={request.id}
           sx={{
             display: "flex",
             flexDirection: isMobile ? "column" : "row",
@@ -59,7 +73,7 @@ const FundsTable = ({ funds }) => {
                 ID
               </Typography>
             )}
-            <Typography variant="body2">{fund.id}</Typography>
+            <Typography variant="body2">{request.uid}</Typography>
           </Box>
 
           {/* Дата */}
@@ -69,7 +83,7 @@ const FundsTable = ({ funds }) => {
                 Дата
               </Typography>
             )}
-            <Typography variant="body2">{fund.date}</Typography>
+            <Typography variant="body2">{request.date}</Typography>
           </Box>
 
           {/* Статус */}
@@ -79,7 +93,7 @@ const FundsTable = ({ funds }) => {
                 Статус
               </Typography>
             )}
-            <Typography variant="body2">{fund.status}</Typography>
+            <Typography variant="body2">{request.status}</Typography>
           </Box>
 
           {/* Сумма */}
@@ -92,7 +106,7 @@ const FundsTable = ({ funds }) => {
             <Typography variant="body2">
               Сумма:
               <br />
-              {fund.price} ₽
+              {request.amount} ₽
             </Typography>
           </Box>
         </Box>
