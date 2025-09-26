@@ -12,8 +12,8 @@ const FundsTable = ({ funds }) => {
   useEffect(() => {
     const getRequests = async () => {
       const res = await axios.get(`${API_URL}withdrawals/`);
-      setRequests(res.data);
       console.log(res);
+      setRequests(res.data.requests);
     };
     getRequests();
   }, []);
