@@ -2,6 +2,8 @@ import styled from "styled-components";
 import MyContainer from "../../components/CommonComponents/MyContainer";
 import TitleDiv from "../../components/CommonComponents/TitleDiv";
 import { useState } from "react";
+import axios from "axios";
+import { API_URL } from "../../utils/constants";
 
 const DivPricng = styled.div`
   display: flex;
@@ -91,12 +93,19 @@ const Pricing = () => {
     setValues(newValues);
   };
 
-  const handleSave = () => {
+  const getArgs = () => {
     const result = args.reduce((acc, label, index) => {
       acc[label] = values[index];
       return acc;
     }, {});
-    console.log(result);
+    return result;
+  };
+
+  const handleSave = async () => {
+    const args = getArgs();
+    console.log(args);
+    const res = await axios.post(`${API_URL}pricing/`, args);
+    console.log(res);
   };
 
   return (
