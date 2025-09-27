@@ -94,7 +94,7 @@ const Pricing = () => {
       acc[label] = values[index];
       return acc;
     }, {});
-    console.log(result);
+    console.log(values);
   };
 
   return (
