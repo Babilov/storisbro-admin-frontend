@@ -80,6 +80,8 @@ const Pricing = () => {
     "Пользователь",
   ];
 
+  const args = ["sk", "pk", "cpm", "refs_pay", "UID"];
+
   // Массив состояний для каждого input
   const [values, setValues] = useState(Array(labels.length).fill(""));
 
@@ -90,11 +92,11 @@ const Pricing = () => {
   };
 
   const handleSave = () => {
-    const result = labels.reduce((acc, label, index) => {
-      acc[label] = values[index];
+    const result = labels.reduce((acc, args, index) => {
+      acc[args] = values[index];
       return acc;
     }, {});
-    console.log(values);
+    console.log(result);
   };
 
   return (
