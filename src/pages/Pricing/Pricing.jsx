@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import MyContainer from "../../components/CommonComponents/MyContainer";
 import TitleDiv from "../../components/CommonComponents/TitleDiv";
+import { useState } from "react";
 
 const DivPricng = styled.div`
   display: flex;
@@ -71,23 +72,45 @@ const Button = styled.button`
 `;
 
 const Pricing = () => {
+  const labels = [
+    "Стандартная комиссия",
+    "Пониженная комиссия",
+    "СРМ для админов",
+    "Сумма за реферала",
+    "Пользователь",
+  ];
+
+  // Массив состояний для каждого input
+  const [values, setValues] = useState(Array(labels.length).fill(""));
+
+  const handleInputChange = (index, value) => {
+    const newValues = [...values];
+    newValues[index] = value;
+    setValues(newValues);
+  };
+
+  const handleSave = () => {
+    const result = labels.reduce((acc, label, index) => {
+      acc[label] = values[index];
+      return acc;
+    }, {});
+    console.log(result);
+  };
+
   return (
     <MyContainer>
       <TitleDiv title="Ценообразование" />
       <DivPricng>
-        {[
-          "Стандартная комиссия",
-          "Пониженная комиссия",
-          "СРМ для админов",
-          "Сумма за реферала",
-          "Пользователь",
-        ].map((item, i) => (
+        {labels.map((item, i) => (
           <Div key={i}>
             <P>{item}</P>
-            <Input />
+            <Input
+              value={values[i]}
+              onChange={(e) => handleInputChange(i, e.target.value)}
+            />
           </Div>
         ))}
-        <Button>Сохранить</Button>
+        <Button onClick={handleSave}>Сохранить</Button>
       </DivPricng>
     </MyContainer>
   );
