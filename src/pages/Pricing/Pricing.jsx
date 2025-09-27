@@ -92,8 +92,8 @@ const Pricing = () => {
   };
 
   const handleSave = () => {
-    const result = labels.reduce((acc, args, index) => {
-      acc[args] = values[index];
+    const result = args.reduce((acc, label, index) => {
+      acc[label] = values[index];
       return acc;
     }, {});
     console.log(result);
