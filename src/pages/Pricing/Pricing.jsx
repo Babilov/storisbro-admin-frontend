@@ -108,8 +108,11 @@ const Pricing = () => {
   const handleSave = async () => {
     const args = getArgs();
     console.log(args);
-    const res = await axios.post(`${API_URL}pricing/`, args);
-    console.log(res);
+    try {
+      const res = await axios.post(`${API_URL}pricing/`, args);
+    } catch (e) {
+      alert("Нет такого пользователя!");
+    }
   };
 
   return (
