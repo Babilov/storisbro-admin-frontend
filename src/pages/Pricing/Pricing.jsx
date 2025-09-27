@@ -95,6 +95,10 @@ const Pricing = () => {
 
   const getArgs = () => {
     const result = args.reduce((acc, label, index) => {
+      // Исключаем поле "UID" если оно пустое
+      if (label === "UID" && (values[index] === "" || values[index] == null)) {
+        return acc;
+      }
       acc[label] = values[index];
       return acc;
     }, {});
