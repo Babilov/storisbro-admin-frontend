@@ -107,7 +107,6 @@ const Pricing = () => {
 
   const handleSave = async () => {
     const args = getArgs();
-    console.log(args);
     try {
       const res = await axios.post(`${API_URL}pricing/`, args);
     } catch (e) {

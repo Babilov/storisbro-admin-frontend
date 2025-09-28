@@ -1,8 +1,25 @@
 import { Box, Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { API_URL } from "../../utils/constants";
 
 const AdLinksTable = ({ adLinks }) => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const [links, setLinks] = useState([]);
+
+  useEffect(() => {
+    const getLinks = async () => {
+      try {
+        const res = await axios.get(`${API_URL}links`);
+        setLinks(res.data.requests);
+        console.log(res.data);
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getLinks();
+  }, []);
 
   return (
     <Paper
@@ -46,7 +63,7 @@ const AdLinksTable = ({ adLinks }) => {
       )}
 
       {/* Строки / карточки */}
-      {adLinks.map((adLink, i) => (
+      {links.map((link, i) => (
         <Box
           key={i}
           sx={{
@@ -72,12 +89,12 @@ const AdLinksTable = ({ adLinks }) => {
             <Typography
               variant="body2"
               component="a"
-              href={adLink.link}
+              href={link.url}
               target="_blank"
               rel="noreferrer"
               sx={{ color: "primary.main", textDecoration: "underline" }}
             >
-              {adLink.link}
+              {link.url}
             </Typography>
           </Box>
 
@@ -88,7 +105,7 @@ const AdLinksTable = ({ adLinks }) => {
                 Название
               </Typography>
             )}
-            <Typography variant="body2">{adLink.title}</Typography>
+            <Typography variant="body2">{link.name}</Typography>
           </Box>
 
           {/* Дата и время */}
@@ -99,7 +116,7 @@ const AdLinksTable = ({ adLinks }) => {
               </Typography>
             )}
             <Typography variant="body2">
-              {adLink.date} <br /> {adLink.time}
+              {link.date} <br /> {/*adLink.time*/}
             </Typography>
           </Box>
 
@@ -110,7 +127,7 @@ const AdLinksTable = ({ adLinks }) => {
                 Переходы
               </Typography>
             )}
-            <Typography variant="body2">{adLink.redirects}</Typography>
+            <Typography variant="body2">{link.clicks}</Typography>
           </Box>
 
           {/* Регистрации */}
@@ -120,7 +137,7 @@ const AdLinksTable = ({ adLinks }) => {
                 Регистрации
               </Typography>
             )}
-            <Typography variant="body2">{adLink.registrations}</Typography>
+            <Typography variant="body2">{link.registrations}</Typography>
           </Box>
         </Box>
       ))}
