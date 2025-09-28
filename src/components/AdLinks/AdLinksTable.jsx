@@ -1,26 +1,51 @@
-import { Box, Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
+import {
+  Box,
+  Paper,
+  Typography,
+  useTheme,
+  useMediaQuery,
+  Button,
+  TextField,
+} from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../utils/constants";
 import { formatDate, formatTime } from "../../utils/funcs";
 
-const AdLinksTable = ({ adLinks }) => {
+const AdLinksTable = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
   const [links, setLinks] = useState([]);
+  const [showForm, setShowForm] = useState(false);
+  const [formData, setFormData] = useState({ url: "", name: "" });
 
   useEffect(() => {
     const getLinks = async () => {
       try {
         const res = await axios.get(`${API_URL}links`);
         setLinks(res.data.requests);
-        console.log(res.data);
       } catch (e) {
         console.log(e);
       }
     };
     getLinks();
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(`${API_URL}links/create/`, formData, {
+        headers: { "Content-Type": "application/json" },
+      });
+      // добавить новую ссылку в стейт
+      setLinks((prev) => [...prev, res.data]);
+      // очистить форму
+      setFormData({ url: "", name: "" });
+      setShowForm(false);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <Paper
@@ -29,8 +54,48 @@ const AdLinksTable = ({ adLinks }) => {
         width: "100%",
         borderRadius: 0,
         boxSizing: "border-box",
+        p: 2,
       }}
     >
+      {/* Кнопка для открытия формы */}
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => setShowForm((prev) => !prev)}
+        sx={{ mb: 2 }}
+      >
+        {showForm ? "Отмена" : "Добавить ссылку"}
+      </Button>
+
+      {/* Форма */}
+      {showForm && (
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ display: "flex", flexDirection: "column", gap: 2, mb: 3 }}
+        >
+          <TextField
+            label="Ссылка"
+            value={formData.url}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, url: e.target.value }))
+            }
+            required
+          />
+          <TextField
+            label="Название"
+            value={formData.name}
+            onChange={(e) =>
+              setFormData((prev) => ({ ...prev, name: e.target.value }))
+            }
+            required
+          />
+          <Button type="submit" variant="contained" color="success">
+            Сохранить
+          </Button>
+        </Box>
+      )}
+
       {/* Заголовки — только на десктопе */}
       {!isMobile && (
         <Box
@@ -46,16 +111,8 @@ const AdLinksTable = ({ adLinks }) => {
           }}
         >
           {["Ссылка", "Название", "Дата", "Переходы", "Регистрации"].map(
-            (text, idx) => (
-              <Box
-                key={text}
-                sx={{
-                  flex: 1,
-                  fontWeight: "bold",
-                  // Если нужно, можно гибко менять ширину колонок
-                  // flex: text === "Дата" ? 1.5 : 1,
-                }}
-              >
+            (text) => (
+              <Box key={text} sx={{ flex: 1, fontWeight: "bold" }}>
                 {text}
               </Box>
             )
