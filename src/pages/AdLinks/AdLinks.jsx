@@ -26,6 +26,7 @@ const AdLinks = () => {
   return (
     <MyContainer>
       <TitleDiv title="Рекламные ссылки" />
+      {/* 
       <MyButton
         sizes={{ width: "185px", height: "45px" }}
         radius="10px"
@@ -33,6 +34,7 @@ const AdLinks = () => {
       >
         Создать
       </MyButton>
+      */}
       <AdLinksTable adLinks={adLinks} />
     </MyContainer>
   );
