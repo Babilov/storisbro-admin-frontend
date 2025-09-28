@@ -2,6 +2,7 @@ import { Box, Paper, Typography, useTheme, useMediaQuery } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { API_URL } from "../../utils/constants";
+import { formatDate, formatTime } from "../../utils/funcs";
 
 const AdLinksTable = ({ adLinks }) => {
   const theme = useTheme();
@@ -116,7 +117,7 @@ const AdLinksTable = ({ adLinks }) => {
               </Typography>
             )}
             <Typography variant="body2">
-              {link.date} <br /> {/*adLink.time*/}
+              {formatDate(link.date)} <br /> {formatTime(link.date)}
             </Typography>
           </Box>
 
