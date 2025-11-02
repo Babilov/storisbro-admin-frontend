@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import MyContainer from "../../components/CommonComponents/MyContainer";
 import TitleDiv from "../../components/CommonComponents/TitleDiv";
 import styled from "styled-components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { API_URL } from "../../utils/constants";
 
@@ -58,11 +58,14 @@ const TwoColumnLayout = styled.div`
 
 const UserStatistic = () => {
   const { id } = useParams();
+  const [user, setUser] = useState({});
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const getInfo = async () => {
       const res = await axios.get(`${API_URL}users/user/info/${id}/`);
-      console.log(res);
+      setUser(res.data);
+      setLoading(false);
     };
     getInfo();
   }, []);
@@ -70,76 +73,81 @@ const UserStatistic = () => {
   return (
     <MyContainer>
       <TitleDiv title={`Пользователь #${id}`} />
+      {!loading && (
+        <>
+          <Card>
+            <SectionTitle>Личный профиль</SectionTitle>
 
-      <Card>
-        <SectionTitle>Личный профиль</SectionTitle>
+            <TwoColumnLayout>
+              <div>
+                <InfoRow>
+                  <InfoLabel>Почта:</InfoLabel>
+                  <InfoValue>{user.email}</InfoValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoLabel>Аккаунт Вконтакте:</InfoLabel>
+                  <InfoValue>{user.vk_acc_url}</InfoValue>
+                </InfoRow>
+              </div>
 
-        <TwoColumnLayout>
-          <div>
-            <InfoRow>
-              <InfoLabel>Почта:</InfoLabel>
-              <InfoValue>resasqwq@gmail.com</InfoValue>
-            </InfoRow>
-            <InfoRow>
-              <InfoLabel>Аккаунт Вконтакте:</InfoLabel>
-              <InfoValue>@this.state.developer</InfoValue>
-            </InfoRow>
-          </div>
+              <div>
+                <InfoRow>
+                  <InfoLabel>Дата регистрации:</InfoLabel>
+                  <InfoValue>
+                    {user.reg_date} {user.reg_time}
+                  </InfoValue>
+                </InfoRow>
+                <InfoRow>
+                  <InfoLabel>Статус:</InfoLabel>
+                  <InfoValue>{user.status ? "Активный" : "Отключен"}</InfoValue>
+                </InfoRow>
+              </div>
+            </TwoColumnLayout>
+          </Card>
 
-          <div>
-            <InfoRow>
-              <InfoLabel>Дата регистрации:</InfoLabel>
-              <InfoValue>25.06.2025 13:32</InfoValue>
-            </InfoRow>
-            <InfoRow>
-              <InfoLabel>Статус:</InfoLabel>
-              <InfoValue>Активный</InfoValue>
-            </InfoRow>
-          </div>
-        </TwoColumnLayout>
-      </Card>
+          <TwoColumnLayout>
+            <Card>
+              <SectionTitle>Безопасность</SectionTitle>
 
-      <TwoColumnLayout>
-        <Card>
-          <SectionTitle>Безопасность</SectionTitle>
+              <InfoRow>
+                <CheckIcon src="/icons/check.png" alt="check" />
+                <InfoValue>Пароль был установлен 05.06.2023 17:20</InfoValue>
+              </InfoRow>
 
-          <InfoRow>
-            <CheckIcon src="/icons/check.png" alt="check" />
-            <InfoValue>Пароль был установлен 05.06.2023 17:20</InfoValue>
-          </InfoRow>
+              <InfoRow>
+                <CheckIcon src="/icons/check.png" alt="check" />
+                <InfoValue>Пароль был изменен 05.06.2023 19:20</InfoValue>
+              </InfoRow>
+            </Card>
 
-          <InfoRow>
-            <CheckIcon src="/icons/check.png" alt="check" />
-            <InfoValue>Пароль был изменен 05.06.2023 19:20</InfoValue>
-          </InfoRow>
-        </Card>
+            <Card>
+              <SectionTitle>Финансы</SectionTitle>
 
-        <Card>
-          <SectionTitle>Финансы</SectionTitle>
+              <InfoRow>
+                <InfoLabel>Комиссия:</InfoLabel>
+                <InfoValue>{user.commission_fallback_rate}%</InfoValue>
+              </InfoRow>
 
-          <InfoRow>
-            <InfoLabel>Комиссия:</InfoLabel>
-            <InfoValue>5%</InfoValue>
-          </InfoRow>
+              <InfoRow>
+                <InfoLabel>Последний вывод:</InfoLabel>
+                <InfoValue>{user.last_withdraw || "-"}</InfoValue>
+              </InfoRow>
+            </Card>
+          </TwoColumnLayout>
 
-          <InfoRow>
-            <InfoLabel>Последний вывод:</InfoLabel>
-            <InfoValue>25.06.2025 13:32</InfoValue>
-          </InfoRow>
-        </Card>
-      </TwoColumnLayout>
+          <TwoColumnLayout>
+            <Card>
+              <SectionTitle>Сообщества</SectionTitle>
+              <InfoValue>{user.communities_count} сообществ</InfoValue>
+            </Card>
 
-      <TwoColumnLayout>
-        <Card>
-          <SectionTitle>Сообщества</SectionTitle>
-          <InfoValue>7 сообществ</InfoValue>
-        </Card>
-
-        <Card>
-          <SectionTitle>Рефералы</SectionTitle>
-          <InfoValue>7 приглашенных</InfoValue>
-        </Card>
-      </TwoColumnLayout>
+            <Card>
+              <SectionTitle>Рефералы</SectionTitle>
+              <InfoValue>{user.refs} приглашенных</InfoValue>
+            </Card>
+          </TwoColumnLayout>
+        </>
+      )}
     </MyContainer>
   );
 };
