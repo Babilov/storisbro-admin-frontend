@@ -2,6 +2,9 @@ import { useParams } from "react-router-dom";
 import MyContainer from "../../components/CommonComponents/MyContainer";
 import TitleDiv from "../../components/CommonComponents/TitleDiv";
 import styled from "styled-components";
+import { useEffect } from "react";
+import axios from "axios";
+import { API_URL } from "../../utils/constants";
 
 const Card = styled.div`
   background: white;
@@ -55,6 +58,14 @@ const TwoColumnLayout = styled.div`
 
 const UserStatistic = () => {
   const { id } = useParams();
+
+  useEffect(() => {
+    const getInfo = async () => {
+      const res = await axios.get(`${API_URL}users/user/info/${id}/`);
+      console.log(res);
+    };
+    getInfo();
+  }, []);
 
   return (
     <MyContainer>
