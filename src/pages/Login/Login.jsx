@@ -17,9 +17,8 @@ export default function Login() {
         },
         body: JSON.stringify({ username, password }),
       });
-      navigate("/menu");
       if (res.ok) {
-        alert("Успешный вход");
+        navigate("/menu");
       } else {
         alert("Ошибка входа");
       }
