@@ -30,7 +30,9 @@ export default function Login() {
 
   return (
     <LoginForm
+      username={username}
       setUsername={setUsername}
+      password={password}
       setPassword={setPassword}
       handleSubmit={handleSubmit}
     />

@@ -13,33 +13,39 @@ import GroupStatistic from "./pages/Groups/GroupStatistic";
 import UserStatistic from "./pages/UserBase/UserStatistic";
 import AdPlace from "./pages/PublicationSettings/AdPlace";
 import StatisticDetails from "./pages/Statistic/StatisticDetails";
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<MainMenu />} />
-        <Route path="/creatives" element={<Creatives />} />
-        <Route path="/pricing" element={<Pricing />} />
-        <Route path="/adlinks" element={<AdLinks />} />
+        {/* Страница входа */}
+        <Route path="/" element={<Login />} />
 
-        <Route path="/groups">
-          <Route index element={<Groups />} />
-          <Route path="statistic/:id" element={<GroupStatistic />} />
-        </Route>
+        {/* Главное меню и всё остальное под ним */}
+        <Route path="/menu">
+          <Route index element={<MainMenu />} />
+          <Route path="creatives" element={<Creatives />} />
+          <Route path="pricing" element={<Pricing />} />
+          <Route path="adlinks" element={<AdLinks />} />
+          <Route path="funds" element={<FundsRequests />} />
+          <Route path="statistic" element={<Statistic />} />
+          <Route path="statistics-details" element={<StatisticDetails />} />
 
-        <Route path="/users">
-          <Route index element={<UsersBase />} />
-          <Route path=":id" element={<UserStatistic />} />
-        </Route>
+          <Route path="groups">
+            <Route index element={<Groups />} />
+            <Route path="statistic/:id" element={<GroupStatistic />} />
+          </Route>
 
-        <Route path="/funds" element={<FundsRequests />} />
-        <Route path="/statistic" element={<Statistic />} />
-        <Route path="/statistics-details" element={<StatisticDetails />} />
+          <Route path="users">
+            <Route index element={<UsersBase />} />
+            <Route path=":id" element={<UserStatistic />} />
+          </Route>
 
-        <Route path="/publication_settings">
-          <Route index element={<PublicationSettings />} />
-          <Route path=":number" element={<AdPlace />} />
+          <Route path="publication_settings">
+            <Route index element={<PublicationSettings />} />
+            <Route path=":number" element={<AdPlace />} />
+          </Route>
         </Route>
       </Routes>
     </div>

@@ -4,7 +4,13 @@ import Paper from "@mui/material/Paper";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 
-const LoginForm = ({ setUsername, setPassword, handleSubmit }) => {
+const LoginForm = ({
+  username,
+  setUsername,
+  password,
+  setPassword,
+  handleSubmit,
+}) => {
   return (
     <Box
       sx={{
