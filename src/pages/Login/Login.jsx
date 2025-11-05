@@ -9,7 +9,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch("http://62.113.96.70/admin/auth-admin/login/", {
+      const res = await fetch("http://62.113.96.70/auth-admin/login/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
